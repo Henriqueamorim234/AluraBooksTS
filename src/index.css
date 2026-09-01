@@ -5,3 +5,12 @@
   --color-azul-claro: #326589;
   --color-amarelo-separador: #eb9b00;
 }
+
+.books-swiper .swiper-button-next,
+.books-swiper .swiper-button-prev {
+  color: #002f52;
+}
+
+.books-swiper .swiper-pagination-bullet-active {
+  background: #eb9b00;
+}
