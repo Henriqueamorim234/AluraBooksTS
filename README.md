@@ -1,75 +1,52 @@
-# React + TypeScript + Vite
+# AluraBooks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Livraria virtual feita em React + TypeScript, baseada no layout do AluraBooks (Figma). A página reúne busca, carrosséis de livros e cards de destaque.
 
-Currently, two official plugins are available:
+Os livros dos carrosséis vêm da [Open Library](https://openlibrary.org/developers/api). A cada recarga da página, uma categoria diferente é escolhida (ficção, fantasia, romance, mistério ou ficção científica).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [Swiper](https://swiperjs.com/) — carrossel de livros
+- [Axios](https://axios-http.com/) — chamadas à Open Library
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Como rodar
 
-## Expanding the ESLint configuration
+Pré-requisito: Node.js 20 ou superior.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Abra [http://localhost:5173](http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Comando | O que faz |
+| --- | --- |
+| `npm run dev` | Sobe o servidor de desenvolvimento |
+| `npm run build` | Gera a versão de produção |
+| `npm run preview` | Serve o build localmente |
+| `npm run lint` | Roda o ESLint |
+| `npm run format` | Formata o código com Prettier |
+| `npm run format:check` | Só verifica se o Prettier está ok |
+
+## Estrutura
 
 ```
+src/
+  components/
+    Header/            # logo, menu e atalhos
+    Banner/            # hero com busca
+    SectionSeparator/  # título de seção (Últimos lançamentos, Mais vendidos)
+    BooksSwiper/       # carrossel com 10 livros, 3 visíveis por vez
+    FeaturedBookCard/  # card "Talvez você também se interesse por..."
+    MonthAuthor/       # card "Autora do Mês"
+  services/
+    openLibrary.ts     # busca de livros por categoria
+```
+
+O modelo visual de referência está em `modelo-figma/`.
