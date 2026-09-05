@@ -69,7 +69,7 @@ export default function BooksSwiper() {
   }, [category])
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-8 pb-12">
+    <div className="w-full">
       <p className="text-center text-azul-escuro text-sm font-medium mb-6">
         Categoria desta visita: {CATEGORY_LABELS[category]}
       </p>
@@ -96,12 +96,7 @@ export default function BooksSwiper() {
           navigation
           pagination={{ clickable: true }}
           spaceBetween={24}
-          slidesPerView={2}
-          breakpoints={{
-            640: { slidesPerView: 3 },
-            768: { slidesPerView: 4 },
-            1024: { slidesPerView: 5 },
-          }}
+          slidesPerView={3}
           className="books-swiper pb-12!"
         >
           {books.map((book) => (
@@ -119,6 +114,6 @@ export default function BooksSwiper() {
           ))}
         </Swiper>
       )}
-    </section>
+    </div>
   )
 }

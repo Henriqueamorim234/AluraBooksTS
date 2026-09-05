@@ -77,7 +77,7 @@ export async function fetchBooksByCategory(
     `/subjects/${category}.json`,
     {
       params: {
-        limit: 24,
+        limit: 10,
       },
       signal,
     }
