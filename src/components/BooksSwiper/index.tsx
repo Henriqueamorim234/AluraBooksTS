@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import {
   CATEGORY_LABELS,
   fetchBooksByCategory,
-  pickCategoryOnReload,
   type Book,
   type BookCategory,
 } from '../../services/openLibrary'
@@ -20,7 +19,9 @@ function BookCover({ book }: { book: Book }) {
   if (!book.coverUrl || failed) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-azul-escuro px-3 text-center">
-        <span className="text-white text-sm font-semibold leading-tight">{book.title}</span>
+        <span className="text-white text-sm font-semibold leading-tight">
+          {book.title}
+        </span>
       </div>
     )
   }
@@ -35,8 +36,11 @@ function BookCover({ book }: { book: Book }) {
   )
 }
 
-export default function BooksSwiper() {
-  const [category] = useState<BookCategory>(() => pickCategoryOnReload())
+type BooksSwiperProps = {
+  category: BookCategory
+}
+
+export default function BooksSwiper({ category }: BooksSwiperProps) {
   const [books, setBooks] = useState<Book[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -108,7 +112,9 @@ export default function BooksSwiper() {
                 <h3 className="text-azul-escuro text-sm font-bold text-center line-clamp-2 min-h-10">
                   {book.title}
                 </h3>
-                <p className="text-azul-claro text-xs text-center line-clamp-1">{book.author}</p>
+                <p className="text-azul-claro text-xs text-center line-clamp-1">
+                  {book.author}
+                </p>
               </article>
             </SwiperSlide>
           ))}

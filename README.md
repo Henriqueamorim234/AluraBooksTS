@@ -2,7 +2,7 @@
 
 Livraria virtual feita em React + TypeScript, baseada no layout do AluraBooks (Figma). A página reúne busca, carrosséis de livros e cards de destaque.
 
-Os livros dos carrosséis vêm da [Open Library](https://openlibrary.org/developers/api). A cada recarga da página, uma categoria diferente é escolhida (ficção, fantasia, romance, mistério ou ficção científica).
+Os livros dos carrosséis vêm da [Open Library](https://openlibrary.org/developers/api). A cada recarga da página, os dois carrosséis recebem categorias diferentes entre si (ficção, fantasia, romance, mistério ou ficção científica).
 
 ## Stack
 

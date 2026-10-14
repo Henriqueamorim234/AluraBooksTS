@@ -18,7 +18,7 @@ export const CATEGORY_LABELS: Record<BookCategory, string> = {
   science_fiction: 'Ficção Científica',
 }
 
-const LAST_CATEGORY_KEY = 'alurabooks:last-category'
+const LAST_CATEGORIES_KEY = 'alurabooks:last-categories'
 
 export type Book = {
   key: string
@@ -43,22 +43,38 @@ const openLibraryApi = axios.create({
   timeout: 12000,
 })
 
-let categoryForThisLoad: BookCategory | null = null
+let categoriesForThisLoad: [BookCategory, BookCategory] | null = null
 
-export function pickCategoryOnReload(): BookCategory {
-  if (categoryForThisLoad) {
-    return categoryForThisLoad
+function isBookCategory(value: string): value is BookCategory {
+  return (BOOK_CATEGORIES as readonly string[]).includes(value)
+}
+
+function pickTwoDistinct(options: readonly BookCategory[]): [BookCategory, BookCategory] {
+  const firstIndex = Math.floor(Math.random() * options.length)
+  let secondIndex = Math.floor(Math.random() * (options.length - 1))
+  if (secondIndex >= firstIndex) {
+    secondIndex += 1
   }
 
-  const lastCategory = sessionStorage.getItem(LAST_CATEGORY_KEY)
-  const nextOptions = BOOK_CATEGORIES.filter((category) => category !== lastCategory)
-  const nextCategory =
-    nextOptions[Math.floor(Math.random() * nextOptions.length)] ?? BOOK_CATEGORIES[0]
+  return [options[firstIndex], options[secondIndex]]
+}
 
-  sessionStorage.setItem(LAST_CATEGORY_KEY, nextCategory)
-  categoryForThisLoad = nextCategory
+export function pickCategoriesOnReload(): [BookCategory, BookCategory] {
+  if (categoriesForThisLoad) {
+    return categoriesForThisLoad
+  }
 
-  return nextCategory
+  const previous = (sessionStorage.getItem(LAST_CATEGORIES_KEY) ?? '')
+    .split(',')
+    .filter(isBookCategory)
+  const unused = BOOK_CATEGORIES.filter((category) => !previous.includes(category))
+  const pool = unused.length >= 2 ? unused : BOOK_CATEGORIES
+  const nextCategories = pickTwoDistinct(pool)
+
+  sessionStorage.setItem(LAST_CATEGORIES_KEY, nextCategories.join(','))
+  categoriesForThisLoad = nextCategories
+
+  return nextCategories
 }
 
 function getCoverUrl(coverId?: number | null): string | null {
