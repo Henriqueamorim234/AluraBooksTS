@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import {
   CATEGORY_LABELS,
   fetchBooksByCategory,
+  getWorkId,
   type Book,
   type BookCategory,
 } from '../../services/openLibrary'
@@ -105,7 +107,10 @@ export default function BooksSwiper({ category }: BooksSwiperProps) {
         >
           {books.map((book) => (
             <SwiperSlide key={book.key}>
-              <article className="flex flex-col items-center gap-3">
+              <Link
+                to={`/book/${getWorkId(book.key)}`}
+                className="flex flex-col items-center gap-3"
+              >
                 <div className="w-36 h-52 rounded-sm overflow-hidden shadow-md bg-gray-100">
                   <BookCover book={book} />
                 </div>
@@ -115,7 +120,7 @@ export default function BooksSwiper({ category }: BooksSwiperProps) {
                 <p className="text-azul-claro text-xs text-center line-clamp-1">
                   {book.author}
                 </p>
-              </article>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

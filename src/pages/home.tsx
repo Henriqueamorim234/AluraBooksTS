@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import Header from './components/Header'
-import Banner from './components/Banner'
-import SectionSeparator from './components/SectionSeparator'
-import BooksSwiper from './components/BooksSwiper'
-import FeaturedBookCard from './components/FeaturedBookCard'
-import MonthAuthor from './components/MonthAuthor'
-import { pickCategoriesOnReload } from './services/openLibrary'
+import Header from '../components/Header'
+import Banner from '../components/Banner'
+import SectionSeparator from '../components/SectionSeparator'
+import BooksSwiper from '../components/BooksSwiper'
+import FeaturedBookCard from '../components/FeaturedBookCard'
+import MonthAuthor from '../components/MonthAuthor'
+import { pickCategoriesOnReload } from '../services/openLibrary'
 
-function App() {
+function Home() {
   const [categories] = useState(() => pickCategoriesOnReload())
 
   return (
@@ -36,4 +36,4 @@ function App() {
   )
 }
 
-export default App
+export default Home
